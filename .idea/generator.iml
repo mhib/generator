@@ -5,7 +5,9 @@
       <sourceFolder url="file://$MODULE_DIR$/post.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/main.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/utils.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/yaml" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/utils.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/post.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/sds/sdsalloc.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/sds/sds.h" isTestSource="false" />

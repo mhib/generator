@@ -1,14 +1,24 @@
+#include "utils.h"
 #include "post.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <errno.h>
 #include <dirent.h>
-
+sds extension;
 int number_of_posts = 0;
 
+void set_globals() {
+   extension = sdsnew(".md") ;
+}
+
+void clean_globals() {
+   sdsfree(extension);
+}
+
 int main() {
-    sds heh = sdsnew("ąść≠≠");
-    printf("%s %d\n", heh, (int)sdslen(heh));
+    set_globals();
+    // sds heh = sdsnew("ąść≠≠a");
+    printf("%d\n", ends_with(sdsnew("asdasdasdas.md"), extension));
     char cwd[1024];
     if (getcwd(cwd, sizeof(cwd)) == NULL) {
         perror("getcwd() error");
@@ -24,14 +34,15 @@ int main() {
     {
         while ((dir = readdir(d)) != NULL)
         {
-            if (dir->d_type == DT_REG)
-            {
+            sds name = sdsnew(dir -> d_name);
+            if(ends_with(name, extension))
                 number_of_posts += 1;
-            }
+            sdsfree(name);
         }
         closedir(d);
     }
     printf("Number of posts: %d.\n", number_of_posts);
     // Post * posts = (Post*)malloc(sizeof(Post) * number_of_posts);
+    clean_globals();
     return 0;
 }
