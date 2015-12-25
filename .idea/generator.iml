@@ -2,12 +2,14 @@
 <module type="CPP_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/post.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/main.c" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/sds.c" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/sdsalloc.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/yaml" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/post.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/sds.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sds/sdsalloc.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sds/sds.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sds/sds.c" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
