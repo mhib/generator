@@ -1,17 +1,30 @@
 #ifndef GENERATOR_POST_H
 #define GENERATOR_POST_H
 
+#include "utils.h"
 #include <stdlib.h>
-#include "yaml/yaml.h"
 #include "sds/sds.h"
+#include "sundown/markdown.h"
+#define READ_UNIT 1024
+#define OUTPUT_UNIT 64
 
 typedef struct Post {
     sds title;
+    sds introduction;
     sds content;
+    struct tm published_at;
 } Post;
 
-void free_post(Post * p);
+typedef struct Conf {
+    sds title;
+    sds introduction;
+    struct tm date;
+} Conf;
 
-Post* new_post(const char *title, const char *content);
+void free_post(Post *p);
+
+Post new_post(sds filename, sds config, sds content, int extenssion_len);
+Conf* read_conf(sds input);
+void inspect(Post* p);
 
 #endif //GENERATOR_POST_H

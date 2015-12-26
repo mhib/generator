@@ -5,12 +5,26 @@
       <sourceFolder url="file://$MODULE_DIR$/post.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/main.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sundown/html.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sundown/stack.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sundown/houdini_html_e.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sundown/html.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sundown/html_smartypants.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sundown/houdini_href_e.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sundown/markdown.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sundown/buffer.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sundown/markdown.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sundown/html_blocks.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sundown/houdini.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sundown/autolink.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sundown/buffer.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sundown/stack.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sundown/autolink.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/utils.c" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/yaml" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/utils.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/post.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/sds/sdsalloc.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/sds/sds.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sds/sdsalloc.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/sds/sds.c" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
