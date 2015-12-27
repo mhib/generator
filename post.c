@@ -1,5 +1,12 @@
 #include "post.h"
 #include "sundown/html.h"
+
+typedef struct Conf {
+    sds title;
+    sds introduction;
+    struct tm date;
+} Conf;
+
 sds render_markdown(sds input) {
 
     struct buf *ib, *ob;
@@ -24,11 +31,10 @@ sds render_markdown(sds input) {
     bufrelease(ob);
     sdsfree(data);
     return out;
-
 }
 
 Conf* read_conf(sds input) {
-    Conf* conf = malloc(sizeof(Conf));
+    Conf* conf = (Conf*)malloc(sizeof(Conf));
     sds value = sdsnewlen("", 1000);
     sds token = sdsnewlen("", 1000);
     int tid = 0;
@@ -72,27 +78,33 @@ Conf* read_conf(sds input) {
     return conf;
 }
 
-sds get_introduction(sds content) {
+void get_introduction(Conf * cfg, sds content) {
     sds out = sdsempty();
-    char temp[2];
-    temp[1] = 0;
+    char temp[2] = {0, 0};
     for(int x = 0; x < sdslen(content); x += 1) {
         temp[0] = content[x];
         out = sdscat(out, temp);
         if(content[x] == '\n' && content[x + 1] == '\n') {
-            return out;
+            break;
         }
     }
-    return out;
+    cfg -> introduction = sdsdup(out);
+    sdsfree(out);
 }
 
-Post new_post(sds filename, sds config, sds content, int extension_len) {
-    Post out;
+void clean_cfg(Conf * cfg) {
+    sdsfree(cfg -> title);
+    sdsfree(cfg -> introduction);
+    free(cfg);
+}
+
+Post* new_post(sds filename, sds config, sds content, int extension_len) {
+    Post * out = malloc(sizeof(Post));
     Conf * cfg = read_conf(config);
     sdsfree(config);
-    out.content = render_markdown(content);
+    out -> content = render_markdown(content);
     if(cfg -> date.tm_year == -1  || cfg -> date.tm_year == 0) {
-        sds f_copy = sdsnew(filename);
+        sds f_copy = sdsdup(filename);
         sdsrange(f_copy, 0, 9);
         cfg -> date = parse_time(f_copy);
         sdsfree(f_copy);
@@ -104,13 +116,13 @@ Post new_post(sds filename, sds config, sds content, int extension_len) {
         cfg -> title = f_copy;
     }
     if(cfg -> introduction == NULL || sdslen(cfg -> introduction) == 0) {
-        cfg->introduction = get_introduction(out.content);
-    }
-    out.title = cfg -> title;
-    out.published_at = cfg -> date;
-    out.introduction = cfg -> introduction;
+        get_introduction(cfg, out -> content);
+    };
+    out -> title = sdsdup(cfg -> title);
+    out -> published_at = cfg -> date;
+    out -> introduction = sdsdup(cfg -> introduction);
+    clean_cfg(cfg);
     sdsfree(content);
-    free(cfg);
     return out;
 }
 

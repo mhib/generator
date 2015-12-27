@@ -14,7 +14,6 @@ char posts_dir_name[] = "/_posts/";
 
 
 int main() {
-    // sds heh = sdsnew("ąść≠≠a");
     sds ext = sdsnew(extension);
     char cwd[1024];
     if (getcwd(cwd, sizeof(cwd)) == NULL) {
@@ -41,7 +40,7 @@ int main() {
     }
     printf("Number of posts: %d.\n", number_of_posts);
     if(number_of_posts == 0) return 0;
-    Post * posts = (Post*)malloc(sizeof(Post) * number_of_posts);
+    Post** posts = malloc(sizeof(Post*) * number_of_posts);
     d = opendir(posts_dir);
     if (d)
     {
@@ -50,10 +49,12 @@ int main() {
         {
             if(dir -> d_name[0] == '.') { continue; }
             sds name = sdsnew(dir -> d_name);
-            name = sdscatsds(posts_dir, name);
-            if(ends_with(name, ext)) {
-                printf("%s\n", name);
-                FILE *f = fopen(name, "rt");
+            sds file_name = sdsdup(posts_dir);
+            file_name = sdscatsds(file_name, name);
+            sdsfree(name);
+            if(ends_with(file_name, ext)) {
+                printf("Processing %s\n", file_name);
+                FILE *f = fopen(file_name, "rt");
                 if(f == NULL) { continue; }
                 bool config_to_load = true;
                 bool in_config = false;
@@ -81,15 +82,20 @@ int main() {
                         content = sdscat(content, line);
                     }
                 }
-                posts[id ++]  = new_post(name, config, content, extension_len);
-                inspect(&posts[id-1]);
                 fclose(f);
+                posts[id ++]  = new_post(file_name, config, content, extension_len);
+                inspect(posts[id-1]);
             }
-            sdsfree(name);
+            sdsfree(file_name);
         }
         sdsfree(line);
         closedir(d);
     }
+    for(int i = 0; i < id; i += 1) {
+        free_post(posts[i]);
+    }
+    free(posts);
+    sdsfree(posts_dir);
     sdsfree(ext);
     return 0;
 }

@@ -14,7 +14,7 @@ bool ends_with(sds string, sds ending) {
 
 char *strdup(const char *str)
 {
-    int n = strlen(str) + 1;
+    size_t n = strlen(str) + 1;
     char *dup = malloc(n);
     if(dup)
     {

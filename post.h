@@ -15,16 +15,9 @@ typedef struct Post {
     struct tm published_at;
 } Post;
 
-typedef struct Conf {
-    sds title;
-    sds introduction;
-    struct tm date;
-} Conf;
-
 void free_post(Post *p);
 
-Post new_post(sds filename, sds config, sds content, int extenssion_len);
-Conf* read_conf(sds input);
+Post* new_post(sds filename, sds config, sds content, int extenssion_len);
 void inspect(Post* p);
 
 #endif //GENERATOR_POST_H
