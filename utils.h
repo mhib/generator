@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <ctype.h>
 char *strdup(const char *str);
 bool ends_with(sds string, sds ending);
 struct tm parse_time(sds input);

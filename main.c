@@ -51,9 +51,8 @@ int main() {
             sds name = sdsnew(dir -> d_name);
             sds file_name = sdsdup(posts_dir);
             file_name = sdscatsds(file_name, name);
-            sdsfree(name);
             if(ends_with(file_name, ext)) {
-                printf("Processing %s\n", file_name);
+                printf("Processing %s\n", name);
                 FILE *f = fopen(file_name, "rt");
                 if(f == NULL) { continue; }
                 bool config_to_load = true;
@@ -83,15 +82,16 @@ int main() {
                     }
                 }
                 fclose(f);
-                posts[id ++]  = new_post(file_name, config, content, extension_len);
-                inspect(posts[id-1]);
+                posts[id ++]  = new_post(name, config, content, extension_len);
             }
+            sdsfree(name);
             sdsfree(file_name);
         }
         sdsfree(line);
         closedir(d);
     }
     for(int i = 0; i < id; i += 1) {
+        inspect(posts[i]);
         free_post(posts[i]);
     }
     free(posts);

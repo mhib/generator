@@ -12,6 +12,7 @@ typedef struct Post {
     sds title;
     sds introduction;
     sds content;
+    sds layout;
     struct tm published_at;
 } Post;
 

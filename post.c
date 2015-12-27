@@ -4,6 +4,7 @@
 typedef struct Conf {
     sds title;
     sds introduction;
+    sds layout;
     struct tm date;
 } Conf;
 
@@ -35,6 +36,10 @@ sds render_markdown(sds input) {
 
 Conf* read_conf(sds input) {
     Conf* conf = (Conf*)malloc(sizeof(Conf));
+    conf -> title = NULL;
+    conf -> introduction  = NULL;
+    conf -> layout  = NULL;
+    conf -> date.tm_year = -1;
     sds value = sdsnewlen("", 1000);
     sds token = sdsnewlen("", 1000);
     int tid = 0;
@@ -57,6 +62,9 @@ Conf* read_conf(sds input) {
                 } else if(strcmp(token, "title") == 0) {
                     conf -> title = sdsdup(value);
                     sdstrim(conf -> title, " ");
+                } else if(strcmp(token, "layout") == 0) {
+                    conf -> layout = sdsdup(value);
+                    sdstrim(conf -> layout, " ");
                 } else if(strcmp(token, "introduction") == 0) {
                     conf -> introduction = sdsdup(value);
                     sdstrim(conf -> introduction, " ");
@@ -95,6 +103,7 @@ void get_introduction(Conf * cfg, sds content) {
 void clean_cfg(Conf * cfg) {
     sdsfree(cfg -> title);
     sdsfree(cfg -> introduction);
+    sdsfree(cfg -> layout);
     free(cfg);
 }
 
@@ -111,8 +120,9 @@ Post* new_post(sds filename, sds config, sds content, int extension_len) {
     }
     if(cfg -> title == NULL || sdslen(cfg -> title) == 0) {
         sds f_copy = sdsdup(filename);
-        sdsrange(f_copy, 10, -extension_len - 1);
+        sdsrange(f_copy, 11, -extension_len - 1);
         replace_seperators(f_copy, "_-", ' ');
+        f_copy[0] = toupper(f_copy[0]);
         cfg -> title = f_copy;
     }
     if(cfg -> introduction == NULL || sdslen(cfg -> introduction) == 0) {
@@ -121,6 +131,7 @@ Post* new_post(sds filename, sds config, sds content, int extension_len) {
     out -> title = sdsdup(cfg -> title);
     out -> published_at = cfg -> date;
     out -> introduction = sdsdup(cfg -> introduction);
+    out -> layout = sdsdup(cfg -> layout);
     clean_cfg(cfg);
     sdsfree(content);
     return out;
@@ -128,7 +139,7 @@ Post* new_post(sds filename, sds config, sds content, int extension_len) {
 
 void inspect(Post* p) {
     printf("Title: %s\n", p -> title);
-    struct tm t = p -> published_at;
+    struct tm t = (p -> published_at);
     printf("Date: %d-%d-%dT%d-%d\n", t.tm_year, t.tm_mon, t.tm_mday, t.tm_hour, t.tm_min);
     printf("Introduction: %s\n", p -> introduction);
     printf("Content: %s\n", p -> content);
@@ -138,6 +149,7 @@ void free_post(Post *p) {
     sdsfree(p->title);
     sdsfree(p->introduction);
     sdsfree(p->content);
+    sdsfree(p->layout);
     free(p);
 }
 
