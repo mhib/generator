@@ -1,4 +1,46 @@
 #include "utils.h"
+
+void _mkdir(const char *dir) {
+    char tmp[256];
+    char *p = NULL;
+    size_t len;
+
+    snprintf(tmp, sizeof(tmp),"%s",dir);
+    len = strlen(tmp);
+    if(tmp[len - 1] == '/')
+        tmp[len - 1] = 0;
+    for(p = tmp + 1; *p; p++)
+        if(*p == '/') {
+            *p = 0;
+            mkdir(tmp, S_IRWXU);
+            *p = '/';
+        }
+    mkdir(tmp, S_IRWXU);
+}
+
+/* Converts an integer value to its hex character*/
+char to_hex(char code) {
+    static char hex[] = "0123456789abcdef";
+    return hex[code & 15];
+}
+
+/* Returns a url-encoded version of str */
+/* IMPORTANT: be sure to free() the returned string after use */
+char *url_encode(sds str) {
+    char *pstr = str, *buf = malloc(sdslen(str) * 3 + 1), *pbuf = buf;
+    while (*pstr) {
+        if (isalnum(*pstr) || *pstr == '-' || *pstr == '_' || *pstr == '.' || *pstr == '~')
+            *pbuf++ = *pstr;
+        else if (*pstr == ' ')
+            *pbuf++ = '+';
+        else
+            *pbuf++ = '%', *pbuf++ = to_hex(*pstr >> 4), *pbuf++ = to_hex(*pstr & 15);
+        pstr++;
+    }
+    *pbuf = '\0';
+    return buf;
+}
+
 bool ends_with(sds string, sds ending) {
     if(sdslen(string) < sdslen(ending)) {
         return false;

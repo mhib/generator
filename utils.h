@@ -7,6 +7,14 @@
 #include <stdlib.h>
 #include <time.h>
 #include <ctype.h>
+#include "sundown/houdini.h"
+#include <time.h>
+#include <sys/stat.h>
+
+
+
+void _mkdir(const char *dir);
+char *url_encode(sds str);
 char *strdup(const char *str);
 bool ends_with(sds string, sds ending);
 struct tm parse_time(sds input);

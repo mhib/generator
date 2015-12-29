@@ -13,11 +13,16 @@ typedef struct Post {
     sds introduction;
     sds content;
     sds layout;
+    sds path;
+    sds dir;
+    sds raw_path;
     struct tm published_at;
 } Post;
 
 void free_post(Post *p);
-
+void create_file(Post *p, char * cwd);
+void post_sort(Post **T, int Lo, int Hi);
+sds render_post(Post * post, sds str);
 Post* new_post(sds filename, sds config, sds content, int extenssion_len);
 void inspect(Post* p);
 
