@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "sds/sds.h"
 #include "sundown/markdown.h"
+#include "constants.h"
 #define READ_UNIT 1024
 #define OUTPUT_UNIT 64
 

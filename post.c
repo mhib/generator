@@ -45,8 +45,7 @@ sds render_markdown(sds input) {
 
     /* reading everything */
     ib = bufnew(READ_UNIT);
-    sds data = sdsdup(input);
-    bufput(ib, data, sdslen(data));
+    bufput(ib, input, sdslen(input));
     ob = bufnew(OUTPUT_UNIT);
 
     sdhtml_renderer(&callbacks, &options, 0);
@@ -57,7 +56,6 @@ sds render_markdown(sds input) {
     sds out = sdsnew(bufcstr(ob));
     bufrelease(ib);
     bufrelease(ob);
-    sdsfree(data);
     return out;
 }
 
@@ -83,7 +81,7 @@ Conf* read_conf(sds input) {
         } else {
             if(input[x] == '\n' || input[x] == '\0') {
                 value[vid] = 0;
-                printf("%s %s\n", token, value);
+//                printf("%s %s\n", token, value);
                 if(strcmp(token, "date") == 0) {
                     conf -> date = parse_time(value);
                 } else if(strcmp(token, "title") == 0) {
@@ -118,7 +116,7 @@ void get_introduction(Conf * cfg, sds content) {
     char temp[2] = {0, 0};
     for(int x = 0; x < sdslen(content); x += 1) {
         temp[0] = content[x];
-        out = sdscat(out, temp);
+        out = sdscatlen(out, temp, 1);
         if(content[x] == '\n' && content[x + 1] == '\n') {
             break;
         }
@@ -131,16 +129,18 @@ void generate_path(Post * post) {
     struct tm t = post -> published_at;
     char temp[200];
     sprintf(temp, "posts/%d/%d/%d/", t.tm_year + 1900, t.tm_mon + 1, t.tm_mday);
-    post -> dir = sdsnew(temp);
-    sds out = sdsnew(temp);
+    sds s = sdsnew(temp);
+    post -> dir = sdsnew(s);
+    sds out = sdsnew(s);
+    sdsfree(s);
     out = sdscatsds(out, post -> title);
     for(int i = 0; i < sdslen(out); i += 1) {
         if(isspace(out[i])) {
             out[i] = '-';
         }
     }
-    out = sdscat(out, ".html");
-    post -> raw_path = sdsdup(out);
+    out = sdscatlen(out, ".html", 5);
+    post -> raw_path = sdsnew(out);
     char * encoded = url_encode(out);
     sdsfree(out);
     out = sdsnew(encoded);
@@ -150,17 +150,16 @@ void generate_path(Post * post) {
 
 void create_file(Post * post, char * cwd) {
     sds dir = sdsnew(cwd);
-    dir = sdscat(dir, "/");
+    dir = sdscat(dir, out_folder);
     dir = sdscatsds(dir, post -> dir);
     _mkdir(dir);
     sds layout_location = sdsnew(cwd);
-    layout_location = sdscat(layout_location, "/_");
+    layout_location = sdscatlen(layout_location, "/_layouts/", 10);
     layout_location = sdscat(layout_location, post -> layout);
-    layout_location = sdscat(layout_location, ".html");
+    layout_location = sdscatlen(layout_location, ".html", 5);
     sds file_contents;
     long input_file_size;
     FILE *input_file = fopen(layout_location, "rb");
-    printf("\n\n%s\n", layout_location);
     if(input_file == NULL) {
         printf("No layout %s\n", post -> layout);
         return;
@@ -173,13 +172,17 @@ void create_file(Post * post, char * cwd) {
     fclose(input_file);
     sds rendered = render_post(post, file_contents);
     FILE *out;
-    out = fopen(post -> raw_path, "w");
+    sds path = sdsnew(cwd);
+    path = sdscat(path, out_folder);
+    path = sdscat(path, post -> raw_path);
+    out = fopen(path, "w");
     fputs(rendered, out);
     fclose(out);
     sdsfree(dir);
     sdsfree(rendered);
     sdsfree(layout_location);
     sdsfree(file_contents);
+    sdsfree(path);
 }
 
 sds render_post(Post * post, sds str) {
@@ -194,6 +197,7 @@ sds render_post(Post * post, sds str) {
                 token = sdscatsds(token, temp);
                 i += 1;
             }
+
             if(!strcmp(token, "title")) {
                 out = sdscat(out, post -> title);
             } else if(!strcmp(token, "path")) {
@@ -204,15 +208,23 @@ sds render_post(Post * post, sds str) {
                 out = sdscat(out, post->content);
             } else if(!strcmp(token, "published_at")) {
                 sds temp = sdsnewlen("", 100);
-                strftime(temp, 100, "%x", &(post -> published_at));
+                strftime(temp, 100, "%d/%m/%y %H:%M", &(post -> published_at));
                 out = sdscat(out, temp);
                 sdsfree(temp);
+            } else if(strstr(token, "published_at_format(")) {
+                sds format = sdsdup(token);
+                sdsrange(format, 20, -2);
+                sds temp = sdsnewlen("", 100);
+                strftime(temp, 100, format, &(post -> published_at));
+                out = sdscat(out, temp);
+                sdsfree(temp);
+                sdsfree(format);
             }
             i += 1;
             sdsfree(token);
         } else {
             temp[0] = str[i];
-            out = sdscat(out, temp);
+            out = sdscatlen(out, temp, 1);
         }
     }
     sdsfree(temp);
@@ -260,7 +272,7 @@ void inspect(Post* p) {
     struct tm t = (p -> published_at);
     printf("Date: %d-%d-%dT%d-%d\n", t.tm_year, t.tm_mon, t.tm_mday, t.tm_hour, t.tm_min);
     printf("Introduction: %s\n", p -> introduction);
-    printf("Content: %s\n", p -> content);
+//    printf("Content: %s\n", p -> content);
 }
 
 void free_post(Post *p) {
