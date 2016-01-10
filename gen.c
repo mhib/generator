@@ -2,8 +2,13 @@
 const char config_identifier[] = "---\n" ;
 const char extension[] = ".md";
 const int extension_len = 3;
-int number_of_posts = 0;
-int id = 0;
+int number_of_posts;
+int id;
+
+void set_globals() {
+   id = 0;
+   number_of_posts = 0;
+}
 
 void cp_public(sds dir) {
     sds in_dir = sdsnew(dir);
@@ -108,6 +113,7 @@ void generate_posts(Post ** posts, sds cwd) {
 }
 
 int generate_site(char * p_dir) {
+    set_globals();
     srand(time(NULL));
     sds cwd;
     if(strlen(p_dir) == 0) {
