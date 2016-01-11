@@ -1,5 +1,11 @@
 #include "utils.h"
 
+int file_exists(const char *filename) {
+    struct stat st;
+    int result = stat(filename, &st);
+    return result == 0;
+}
+
 void _mkdir(const char *dir) {
     char tmp[256];
     char *p = NULL;

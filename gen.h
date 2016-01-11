@@ -8,5 +8,5 @@
 #include <dirent.h>
 #include <strings.h>
 #include "constants.h"
-int generate_site(char * dir);
+char * generate_site(char * dir);
 #endif //GENERATOR_GEN_H

@@ -45,8 +45,8 @@ Post ** load_posts(sds p_dir, sds ext) {
         closedir(d);
     }
     printf("Number of posts: %d.\n", number_of_posts);
-    if(number_of_posts == 0) return 0;
     Post** posts = malloc(sizeof(Post*) * number_of_posts);
+    if(number_of_posts == 0) return posts;
     d = opendir(posts_dir);
     if (d)
     {
@@ -112,15 +112,14 @@ void generate_posts(Post ** posts, sds cwd) {
     }
 }
 
-int generate_site(char * p_dir) {
+char * generate_site(char * p_dir) {
     set_globals();
     srand(time(NULL));
     sds cwd;
     if(strlen(p_dir) == 0) {
         char cwd_t[1024];
         if (getcwd(cwd_t, sizeof(cwd_t)) == NULL) {
-            perror("getcwd() error");
-            return 1;
+            return "Invalid directory";
         }
         cwd = sdsnew(cwd_t);
     } else {
@@ -135,17 +134,21 @@ int generate_site(char * p_dir) {
     system(rm);
     sdsfree(rm);
     sdsfree(out_dir);
-    Post ** posts = load_posts(posts_dir, ext);
     FILE *index;
     FILE *out;
-    index = fopen(index_path, "r");
+    sds in_index_path = sdsnew(cwd);
+    in_index_path = sdscatlen(in_index_path, "/", 1);
+    in_index_path = sdscat(in_index_path, index_path);
+    if(!file_exists(in_index_path)) { return "No _index.html"; }
+    
+    Post ** posts = load_posts(posts_dir, ext);
+
+    index = fopen(in_index_path, "r");
     sds index_tmp_path = sdsnew(cwd);
     index_tmp_path = sdscat(index_tmp_path, out_folder);
     _mkdir(index_tmp_path);
     index_tmp_path = sdscat(index_tmp_path, out_index_path);
     out = fopen(index_tmp_path, "w");
-    if(index == NULL) return 1;
-    if(out == NULL) return 1;
     sds start_iteration = sdsnew("{{each_post}}");
     sds start_cmp = sdsdup(start_iteration);
     sdsrange(start_cmp, 1, -1);
@@ -204,5 +207,5 @@ int generate_site(char * p_dir) {
     sdsfree(posts_dir);
     sdsfree(ext);
     sdsfree(cwd);
-    return 0;
+    return "Generated.";
 }

@@ -26,7 +26,8 @@ static void choose_folder(GtkWidget *widget, gpointer data) {
 
 static void generate(GtkWidget *widget, gpointer data) {
     GtkWidget * dialog;
-    if(generate_site((char*)gtk_entry_get_text(GTK_ENTRY(text))) == 0) {
+    char * result = generate_site((char*)gtk_entry_get_text(GTK_ENTRY(text)));
+    if(!strcmp(result, "Generated.")) {
         dialog = gtk_message_dialog_new(GTK_WINDOW(window), GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                         GTK_MESSAGE_INFO, GTK_BUTTONS_OK,
                                         "%s", "Generated");
@@ -34,7 +35,7 @@ static void generate(GtkWidget *widget, gpointer data) {
     } else {
         dialog = gtk_message_dialog_new(GTK_WINDOW(window), GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                         GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,
-                                        "%s", "Error");
+                                        "%s", result);
         gtk_window_set_title(GTK_WINDOW(dialog), "Error");
     }
     gtk_dialog_run(GTK_DIALOG(dialog));
