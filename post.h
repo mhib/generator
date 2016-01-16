@@ -26,5 +26,6 @@ void post_sort(Post **T, int Lo, int Hi);
 sds render_post(Post * post, sds str);
 Post* new_post(sds filename, sds config, sds content, int extenssion_len);
 void inspect(Post* p);
+void new_post_file(char *directory, sds name);
 
 #endif //GENERATOR_POST_H

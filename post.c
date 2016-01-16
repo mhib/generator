@@ -255,7 +255,7 @@ Post* new_post(sds filename, sds config, sds content, int extension_len) {
     };
     if(cfg -> layout == NULL || sdslen(cfg -> layout) == 0) {
         sdsfree(cfg -> layout);
-        cfg -> layout = sdsnew("post.html");
+        cfg -> layout = sdsnew("post");
     }
     out -> title = cfg -> title;
     out -> published_at = cfg -> date;
@@ -273,6 +273,35 @@ void inspect(Post* p) {
     printf("Date: %d-%d-%dT%d-%d\n", t.tm_year, t.tm_mon, t.tm_mday, t.tm_hour, t.tm_min);
     printf("Introduction: %s\n", p -> introduction);
 //    printf("Content: %s\n", p -> content);
+}
+
+void new_post_file(char *directory, sds name) {
+    time_t rawtime;
+    struct tm * timeinfo;
+    time ( &rawtime );
+    timeinfo = localtime ( &rawtime );
+    char t[256];
+    sds out_dir = sdsnew(directory);
+    out_dir = sdscat(out_dir, "/_posts/");
+    _mkdir(out_dir);
+    sds post_file = sdsnew(out_dir);
+    strftime(t, 256, "%Y-%m-%d-", timeinfo);
+    post_file = sdscat(post_file, t);
+    post_file = sdscat(post_file, name);
+    replace_seperators(post_file, " ", '-');
+    post_file = sdscatlen(post_file, ".md", 3);
+    FILE * f = fopen(post_file, "w");
+    if(f == NULL) { return; }
+    fputs("---\n", f);
+    fputs("title: ", f) ;
+    fputs(name, f);
+    fputs("\n", f);
+    strftime(t, 256, "date: %Y-%m-%dT%h:%M:%S\n", timeinfo);
+    fputs(t, f);
+    fputs("---\n", f);
+    fclose(f);
+    sdsfree(post_file);
+    sdsfree(out_dir);
 }
 
 void free_post(Post *p) {
