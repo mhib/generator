@@ -17,8 +17,6 @@
     <list default="true" id="a855962d-aa07-4634-8545-052084e52c4a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.c" afterPath="$PROJECT_DIR$/main.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/post.c" afterPath="$PROJECT_DIR$/post.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/post.h" afterPath="$PROJECT_DIR$/post.h" />
     </list>
     <ignored path="generator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -76,8 +74,8 @@
       <file leaf-file-name="main.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3984375">
-              <caret line="15" column="37" selection-start-line="15" selection-start-column="37" selection-end-line="15" selection-end-column="37" />
+            <state vertical-scroll-proportion="0.31875">
+              <caret line="17" column="20" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -119,7 +117,7 @@
         <entry file="file://$PROJECT_DIR$/gen.c">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="122" column="8" selection-start-line="122" selection-start-column="8" selection-end-line="122" selection-end-column="8" />
+              <caret line="119" column="0" selection-start-line="119" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -187,8 +185,8 @@
         <option value="$PROJECT_DIR$/main_gtk.c" />
         <option value="$PROJECT_DIR$/gen.c" />
         <option value="$PROJECT_DIR$/post.h" />
-        <option value="$PROJECT_DIR$/main.c" />
         <option value="$PROJECT_DIR$/post.c" />
+        <option value="$PROJECT_DIR$/main.c" />
       </list>
     </option>
   </component>
@@ -199,9 +197,9 @@
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds">
-    <option name="y" value="-4" />
+    <option name="y" value="24" />
     <option name="width" value="1366" />
-    <option name="height" value="772" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -270,7 +268,7 @@
     <property name="settings.editor.selected.configurable" value="configurable.group.editor" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="js-jscs-nodeInterpreter" value="/usr/bin/node" />
-    <property name="SearchEverywhereHistoryKey" value="main&#9;FILE&#9;file:///home/marcin/ClionProjects/generator/main.c&#10;utils&#9;FILE&#9;file:///home/marcin/ClionProjects/generator/utils.c&#10;uti&#9;FILE&#9;file:///home/marcin/ClionProjects/generator/utils.c&#10;util&#9;FILE&#9;file:///home/marcin/ClionProjects/generator/utils.c&#10;ut&#9;FILE&#9;file:///home/marcin/ClionProjects/generator/utils.h&#10;post&#9;FILE&#9;file:///home/marcin/ClionProjects/generator/post.h&#10;pos&#9;FILE&#9;file:///home/marcin/ClionProjects/generator/post.h&#10;post.c&#9;FILE&#9;file:///home/marcin/ClionProjects/generator/post.c&#10;token&#9;null&#9;null&#10;post.&#9;FILE&#9;file:///home/marcin/ClionProjects/generator/post.c" />
+    <property name="SearchEverywhereHistoryKey" value="main&#9;FILE&#9;file:///home/marcin/ClionProjects/generator/main.c&#10;gen&#9;FILE&#9;file:///home/marcin/ClionProjects/generator/gen.c&#10;utils&#9;FILE&#9;file:///home/marcin/ClionProjects/generator/utils.c&#10;uti&#9;FILE&#9;file:///home/marcin/ClionProjects/generator/utils.c&#10;util&#9;FILE&#9;file:///home/marcin/ClionProjects/generator/utils.c&#10;ut&#9;FILE&#9;file:///home/marcin/ClionProjects/generator/utils.h&#10;post&#9;FILE&#9;file:///home/marcin/ClionProjects/generator/post.h&#10;pos&#9;FILE&#9;file:///home/marcin/ClionProjects/generator/post.h&#10;post.c&#9;FILE&#9;file:///home/marcin/ClionProjects/generator/post.c&#10;token&#9;null&#9;null&#10;post.&#9;FILE&#9;file:///home/marcin/ClionProjects/generator/post.c" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
@@ -373,7 +371,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="-4" width="1366" height="772" extended-state="6" />
+    <frame x="0" y="24" width="1366" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24963397" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -800,14 +798,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gen.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="122" column="8" selection-start-line="122" selection-start-column="8" selection-end-line="122" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/post.h">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -846,10 +836,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/gen.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="119" column="0" selection-start-line="119" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3984375">
-          <caret line="15" column="37" selection-start-line="15" selection-start-column="37" selection-end-line="15" selection-end-column="37" />
+        <state vertical-scroll-proportion="0.31875">
+          <caret line="17" column="20" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
           <folding />
         </state>
       </provider>
