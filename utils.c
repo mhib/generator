@@ -60,8 +60,7 @@ bool ends_with(sds string, sds ending) {
     return true;
 }
 
-char *strdup(const char *str)
-{
+char *strdup(const char *str) {
     size_t n = strlen(str) + 1;
     char *dup = malloc(n);
     if(dup)

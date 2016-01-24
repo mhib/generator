@@ -1,3 +1,4 @@
+#include "gui.h"
 #include <gtk/gtk.h>
 #include <stdlib.h>
 #include "gen.h"
@@ -58,7 +59,7 @@ activate(GtkApplication *app,
     gtk_entry_set_placeholder_text((GtkEntry*)text, (const gchar*)"Choose index path");
     gtk_box_pack_start(GTK_BOX(box1), text, TRUE, TRUE, 0);
     GtkWidget *button;
-    button = gtk_button_new_with_label("Chose folder");
+    button = gtk_button_new_with_label("Choose folder");
     g_signal_connect(G_OBJECT(button), "clicked",G_CALLBACK(choose_folder), NULL);
     gtk_box_pack_start(GTK_BOX(box1), button, TRUE, FALSE, 0);
     GtkWidget *button2;
@@ -73,8 +74,7 @@ activate(GtkApplication *app,
     gtk_box_pack_start(GTK_BOX(box1), grid, TRUE, TRUE, 0);
     gtk_widget_show_all(window);
 }
-int
-main(int argc, char **argv) {
+int run(int argc, char **argv) {
     GtkApplication *app;
     int status;
     app = gtk_application_new("org.gtk.example",
