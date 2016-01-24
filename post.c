@@ -133,7 +133,7 @@ void generate_path(Post * post) {
     post -> dir = sdsnew(s);
     sds out = sdsnew(s);
     sdsfree(s);
-    out = sdscatsds(out, post -> title);
+    out = sdscat(out, post -> title);
     for(int i = 0; i < sdslen(out); i += 1) {
         if(isspace(out[i])) {
             out[i] = '-';
