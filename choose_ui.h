@@ -2,7 +2,7 @@
 #ifndef GENERATOR_CHOOSE_UI_H
 #define GENERATOR_CHOOSE_UI_H
 #include <stdbool.h>
-#define GUI false
+#define GUI true
 #if GUI
 #include "gui.h"
 #else
