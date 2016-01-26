@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.3)
-project(generator)
+project(generator C)
 set(GUI false)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Werror -std=c99")
