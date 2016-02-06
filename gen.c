@@ -139,7 +139,7 @@ char * generate_site(char * p_dir) {
     sds in_index_path = sdsnew(cwd);
     in_index_path = sdscatlen(in_index_path, "/", 1);
     in_index_path = sdscat(in_index_path, index_path);
-    if(!file_exists(in_index_path)) { return "No _index.html"; }
+    if(!file_exists(in_index_path)) { return "No index"; }
     
     Post ** posts = load_posts(posts_dir, ext);
 

@@ -3,8 +3,11 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/post.c" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/main.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/gen.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/constants.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sds/sdsalloc.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sds/sds.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sds/sds.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/sundown/html.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/sundown/stack.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/sundown/houdini_html_e.c" isTestSource="false" />
@@ -20,16 +23,15 @@
       <sourceFolder url="file://$MODULE_DIR$/sundown/buffer.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/sundown/stack.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/sundown/autolink.c" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/gen.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/utils.c" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/gen.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/main.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/choose_ui.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/utils.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/gen.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/utils.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/post.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/constants.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/main_gtk.c" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/sds/sdsalloc.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/sds/sds.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/sds/sds.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/gui.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/gui.h" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">

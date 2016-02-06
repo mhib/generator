@@ -8,7 +8,7 @@ typedef struct Conf {
     struct tm date;
 } Conf;
 
-int post_diff(Post * l, Post * p) {
+double post_diff(Post * l, Post * p) {
     return difftime(mktime(&(l -> published_at)), mktime(&(p -> published_at)));
 }
 
@@ -133,7 +133,7 @@ void generate_path(Post * post) {
     post -> dir = sdsnew(s);
     sds out = sdsnew(s);
     sdsfree(s);
-    out = sdscatsds(out, post -> title);
+    out = sdscat(out, post -> title);
     for(int i = 0; i < sdslen(out); i += 1) {
         if(isspace(out[i])) {
             out[i] = '-';
@@ -296,7 +296,7 @@ void new_post_file(char *directory, sds name) {
     fputs("title: ", f) ;
     fputs(name, f);
     fputs("\n", f);
-    strftime(t, 256, "date: %Y-%m-%dT%h:%M:%S\n", timeinfo);
+    strftime(t, 256, "date: %Y-%m-%dT%H:%M:%S\n", timeinfo);
     fputs(t, f);
     fputs("---\n", f);
     fclose(f);

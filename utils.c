@@ -60,8 +60,7 @@ bool ends_with(sds string, sds ending) {
     return true;
 }
 
-char *strdup(const char *str)
-{
+char *strdup(const char *str) {
     size_t n = strlen(str) + 1;
     char *dup = malloc(n);
     if(dup)
@@ -78,15 +77,15 @@ struct tm parse_time(sds input) {
         time_t rawTime;
         time(&rawTime);
         parsed_time = *localtime(&rawTime);
-
-        // tm_year is years since 1900
         parsed_time.tm_year = year - 1900;
-        // tm_months is months since january
         parsed_time.tm_mon = month - 1;
         parsed_time.tm_mday = day;
-        parsed_time.tm_hour = hour;
-        parsed_time.tm_min = minute;
-        parsed_time.tm_sec = second;
+        if(hour >= 0) {
+            parsed_time.tm_hour = hour;
+            parsed_time.tm_min = minute;
+            parsed_time.tm_sec = second;
+        }
+
     } else {
         time_t rawTime;
         time(&rawTime);
