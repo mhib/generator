@@ -88,7 +88,7 @@ Post ** load_posts(sds p_dir, sds ext) {
                     }
                 }
                 fclose(f);
-                posts[id ++]  = new_post(name, config, content, extension_len);
+                posts[id ++] = new_post(name, config, content, extension_len);
                 sdsfree(config);
                 sdsfree(content);
             }
@@ -139,7 +139,13 @@ char * generate_site(char * p_dir) {
     sds in_index_path = sdsnew(cwd);
     in_index_path = sdscatlen(in_index_path, "/", 1);
     in_index_path = sdscat(in_index_path, index_path);
-    if(!file_exists(in_index_path)) { return "No index"; }
+    if(!file_exists(in_index_path)) {
+        sdsfree(cwd);
+        sdsfree(ext);
+        sdsfree(posts_dir);
+        sdsfree(in_index_path);
+        return "No index";
+    }
     
     Post ** posts = load_posts(posts_dir, ext);
 
@@ -200,6 +206,7 @@ char * generate_site(char * p_dir) {
     sdsfree(stop_iteration);
     sdsfree(stop_cmp);
     sdsfree(buff);
+    sdsfree(in_index_path);
     fclose(out);
     fclose(index);
     generate_posts(posts, cwd);
